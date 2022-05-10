@@ -12,10 +12,10 @@
 
 6. Consultas:
 
-  1. Al menos incluye 5 consultas de datos simples 
+      1. Al menos incluye 5 consultas de datos simples 
 
-  2. Al menos 3 consultas con arrays 
+      2. Al menos 3 consultas con arrays 
 
-  3. Al menos 3 consultas con documentos embebidos
+      3. Al menos 3 consultas con documentos embebidos
 
-  4. Al menos 1 consulta de agrupación
+      4. Al menos 1 consulta de agrupación
