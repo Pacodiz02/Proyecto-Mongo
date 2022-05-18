@@ -1,0 +1,324 @@
+-- Ejercicio 1. Debes seleccionar un fichero json que incluya todos los tipos de datos soportados en MongoDB. Antes de continuar la profesora deberá dar el visto bueno al mismo.
+
+Entregado y validado.
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+
+-- Ejercicio 2. Con la utilidad mongoimport introduce los documentos correspondientes a esa colección.
+
+mongoimport -db proyecto --collection peliculas -file json/fichero_para_mongoimport.json
+
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+
+-- Ejercicio 3.Insertar varios documentos utilizando los dos métodos de inserción de MongoDB.
+
+
+-- METODO 1. insertOne  (Insercciones de un documento)
+
+
+db.peliculas.insertOne({
+    "name": "Episodio IX - El ascenso de Skywalker",
+    "year": 2019,
+    "runtime": 142,
+    "categories": [
+      "action",
+      "adventure",
+      "sci-fi"
+    ],
+    "release-date": "2019-12-20",
+    "director": {
+    "name": "J. J. Abrams",
+    "birthname": "Jeffrey Jacob Abrams",
+    "birthdate": "1966-05-27",
+    "birthplace": "New York, U.S."
+  },
+    "writer": "Chris Terrio",
+    "actors": [
+      "Mark Hamill",
+      "Harrison Ford",
+      "Carrie Fisher",
+      "Alec Guinness"
+    ]
+  })
+
+
+--------------------------------------------------------------------
+
+
+db.peliculas.insertOne({
+  "name": "Doctor Strange en el Multiverso de la Locura",
+  "year": 2022,
+  "runtime": 126 ,
+  "categories": [
+    "action",
+    "adventure",
+    "sci-fi"
+  ],
+  "release-date": "2022-05-16",
+  "director": {
+  "name": "Sam Raimi",
+  "birthname": "Samuel Marshall Raimi",
+  "birthdate": "1959-10-23",
+  "birthplace": "Royal Oak, Michigan, Estados Unidos"
+},
+  "writer": "Scott Derrickson",
+  "actors": [
+    "Elizabeth Olsen",
+    "Xochitl Gomez",
+    "Benedict Cumberbatch",
+    "Rachel McAdams"
+  ]
+})
+
+
+-----------------------------------------------------------------------
+
+-- METODO 2. insertMany  (Insercciones de varios documentos a la vez)
+
+db.peliculas.insertMany([{
+  "name": "The Northman",
+  "year": 2022,
+  "runtime": 137 ,
+  "categories": [
+    "action",
+    "adventure",
+    "sci-fi"
+  ],
+  "release-date": "2022-04-22",
+  "director": {
+  "name": "Robert Eggers",
+  "birthname": "Robert Neil Eggers",
+  "birthdate": "1983-07-07",
+  "birthplace": "Nuevo Hampshire, Estados Unidos"
+},
+  "writer": "Sigurjón Birgir Sigurðsson",
+  "actors": [
+    "Alexander Skarsgård",
+    "Nicole Kidman",
+    "Claes Bang",
+    "Anya Taylor-Joy"
+  ]
+},
+{
+  "name": "Alcarràs",
+  "year": 2022,
+  "runtime": 120 ,
+  "categories": [
+    "action",
+    "horror",
+    "drama"
+  ],
+  "release-date": "2022-04-29",
+  "director": {
+  "name": "Carla Simón",
+  "birthname": "Carla Simón Pipó",
+  "birthdate": "1986-12-22",
+  "birthplace": "Barcelona"
+},
+  "writer": "Arnau Vilaró",
+  "actors": [
+    "Jordi Pujol Dolcet",
+    "Berta Pipó",
+    "Xenia Roset",
+    "Albert Bosch",
+    "Ainet Jounou",
+    "Montse Oró"
+  ]
+},
+{
+  "name": "Father Stu",
+  "year": 2022,
+  "runtime": 120 ,
+  "categories": [
+    "drama"
+  ],
+  "release-date": "2022-05-13",
+  "director": {
+  "name": "Rosalind Ross",
+  "birthname": "Rosalind Ross",
+  "birthdate": "1990-07-05",
+  "birthplace": "Aptos, California, Estados Unidos"
+},
+  "writer": "Rosalind Ross",
+  "actors": [
+    "Mark Wahlberg",
+    "Mel Gibson",
+    "Jacki Weaver",
+    "Teresa Ruiz"
+  ]
+}])
+
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+
+-- Ejercicio 4.Elimina varios documentos utilizando los dos métodos de eliminación de MongoDB.
+
+
+-- METODO 1. deleteOne (elimina el primer documento en la colección
+que cumple la condición)
+
+db.peliculas.deleteOne({"name": "Episodio IX - El ascenso de Skywalker"})
+
+db.peliculas.deleteOne({"release-date": "2022-05-16"})
+
+--------------------------------------------------------------------
+
+
+-- METODO 2. deleteMany  (elimina todos los documentos en la
+colección que cumplen la condición)
+
+db.peliculas.deleteMany({"year": 2022})
+
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+
+-- Ejercicio 5.Actualiza varios documentos utilizando los tres métodos de eliminación de MongoDB.
+
+
+-- METODO 1. updateOne  (actualiza el primer documento
+que cumple la condición en la colección)
+
+db.peliculas.updateOne({"name": { $eq: "Father Stu"}}, {$set:{"release-date": "2022-05-21"}})
+
+db.peliculas.updateOne({"writer": { $eq: "Rosalind Ross"}}, {$set: {"director": {"name": "Rosalind Picou Ross"}}})
+
+
+--------------------------------------------------------------------
+
+
+-- METODO 2. updateMany (actualiza los documentos en la colección que cumplen la condición)
+
+db.peliculas.updateMany({"year": {$gt: 2021}},{$set: {"year": 2023}})
+
+
+--------------------------------------------------------------------
+
+
+-- METODO 3. replaceOne (reemplaza el primer documento que cumpla la condición en la colección por el indicado en la actualización)
+
+db.peliculas.replaceOne({"name": "Whatever Happened To Baby Jane?"},{"storyline": "Una ex estrella infantil atormenta a su hermana parapléjica en su decadente mansión de Hollywood."})
+
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
+-- Ejercicio 6.Consultas.
+
+--------------------------------------------------------------------
+
+-- 6.1.Al menos incluye 5 consultas de datos simples.
+
+
+-- Muestra todos los documentos de la colección. --
+
+db.peliculas.find().pretty()
+
+
+-- Muestra todos los campos de la pelicula con nombre "The Godfather". --
+
+db.peliculas.find({"name": "The Godfather"}).pretty()
+
+
+-- Muestra todos las peliculas filmadas en 2023. --
+
+db.peliculas.find({"year": {$eq: 2023}}).pretty()
+
+
+-- Muestra todas las peliculas que duran menos de 2 horas. --
+
+db.peliculas.find({"runtime": { $lt: 120}}).pretty()
+
+
+-- Muestra las peliculas filmadas antes de 1973(año no incluido, para incluir en vez de lt, lte) o las que tienen menos de 100 minutos de duracción. --
+
+db.peliculas.find({$or:[{"runtime": {$lte: 100}},{"year": {$lt: 1973}}]}).pretty()
+
+
+-- Ordena ascendentemente las peliculas filmadas entre los años 1990 y 1995 --
+
+db.peliculas.find({"year": {$gte: 1990,$lte: 1995}},{_id:0,"name":1,"year":1}).sort({"year":1}).pretty()
+
+
+-- Ordena descendentemente las peliculas filmadas entre los años 2006 y 2010 --
+
+db.peliculas.find({"year": {$gte: 2006,$lte: 2010}},{_id:0,"name":1,"year":1}).sort({"year":-1}).pretty()
+
+
+-- Muestra las 2 primeras peliculas de los años 90.
+
+db.peliculas.find({"year": {$eq: 1990}},{_id:0,"name":1}).limit(2)
+
+
+--------------------------------------------------------------------
+
+
+6.2.Al menos 3 consultas con arrays.
+
+
+-- Muestra todas las peliculas cuyas categorias son exactamente action,crime, drama. --
+
+db.peliculas.find({categories:['action','crime','drama']}).pretty()
+
+
+-- Muestra las peliculas que pertenecen a la categoria de acción. --
+
+db.peliculas.find({categories:{$all:['action']}}).pretty()
+
+
+-- Muestra la/as peliculas con los escritores. --
+
+db.peliculas.find({writer:['Francis Ford Coppola','Mario Puzo']}).pretty()
+
+
+-- Muestra todas las peliculas en las que participó Mark Hamill. --
+
+db.peliculas.find({actors:{$all:['Mark Hamill']}}).pretty()
+
+
+--------------------------------------------------------------------
+
+
+6.3.Al menos 3 consultas con documentos embebidos.
+
+
+-- Muestra la película o peliculas en la que Ridley Scott hizo de director. --
+
+db.peliculas.find({"director.name":"Ridley Scott"}).pretty()
+
+
+-- Muestra la fecha de nacimiento de de la directora con nombre Rosalind Ross. --
+
+db.peliculas.find({"director.name":"Rosalind Ross"},{_id:0,"director.birthdate":1}).pretty()
+
+
+-- Muestra los nombres y los lugares de nacimiento de los directores que hicieron alguna película en 2023. --
+
+db.peliculas.find({"year": 2023},{_id:0,"director.name":1,"director.birthplace":1})
+
+
+--------------------------------------------------------------------
+
+
+6.4.Al menos 1 consulta de agrupación.
+
+-- Muestra los directores de las peliculas junto al número de peliculas que filmaron.
+
+db.peliculas.aggregate([{$group: {_id: "$director.name","Número de apariciones": {$sum: 1}}},{$project: {_id:0,Nombre: "$_id","Número de apariciones":1}}])
